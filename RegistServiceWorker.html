@@ -5,27 +5,75 @@
     <link rel="manifest" href="/swtest/manifest.json"/>
     <title></title>
 </head>
+
+
+
+
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-messaging.js"></script>
+
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAvqXnkledWUrjRh95WKEDEbYCUe5ETM54",
+    authDomain: "swtest-2ec14.firebaseapp.com",
+    projectId: "swtest-2ec14",
+    storageBucket: "swtest-2ec14.appspot.com",
+    messagingSenderId: "717284539943",
+    appId: "1:717284539943:web:c35262f0bb6629e62f1802"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+
+
+
+
 <body>
     Test page<br>
     ServiceWorker doesn't work yet.
 </body>
+
+
 <script type="text/javascript">
+
     if ('serviceWorker' in navigator) {
         // serviceworkerの登録
-        navigator.serviceWorker.register('/swtest/serviceworker.js');
+        navigator.serviceWorker.register('/swtest/firebase-messaging-sw.js');
 
-navigator.serviceWorker.ready.then(function(registration) {
-	return registration.pushManager.getSubscription().then(function(subscription) {
-		if (subscription) return subscription;
-		registration.pushManager.subscribe({
-			userVisibleOnly: true
-		}).then(function (subscription) {
-			console.log('購読を登録しました');
-		});
-	})
+const messaging = firebase.messaging();
+Notification.requestPermission().then((permission) => {
+  if (permission === 'granted') {
+    // 通知を許可した場合
+    console.log('Notification permission granted.');
+
+    messaging.getToken().then((currentToken) => {
+      if (currentToken) {
+        // トークン取得成功
+        console.log("currentToken:");
+        console.log(currentToken);
+      } else {
+        // トークン取得失敗
+      }
+    });
+  } else {
+    // 通知を拒否した場合
+    console.log('Unable to get permission to notify.');
+  }
 });
 
 
+//    if ('serviceWorker' in navigator) {
+//        // serviceworkerの登録
+//        navigator.serviceWorker.register('/swtest/serviceworker.js');
 
 //        navigator.serviceWorker.ready
 //            .then(function (registration) {
@@ -48,4 +96,8 @@ navigator.serviceWorker.ready.then(function(registration) {
 //            } );
     }
 </script>
+
+
+
+
 </html>
