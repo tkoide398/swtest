@@ -1,0 +1,12 @@
+{
+  "name": "ServiceWorker Push",
+  "short_name": "ServiceWorker Push",
+  "icons": [{
+    "src": "",
+    "sizes": "64x64",
+    "type": "image/png"
+  }],
+  "start_url": "./RegistServiceWorker.html",
+  "display": "standalone",
+  "gcm_sender_id": "717284539943"
+}
