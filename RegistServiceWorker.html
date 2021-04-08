@@ -47,12 +47,11 @@
 
     if ('serviceWorker' in navigator) {
         // serviceworkerの登録
+        const messaging = firebase.messaging();
         navigator.serviceWorker.register('/swtest/firebase-messaging-sw.js')
-.then((registration) => {
-  messaging.useServiceWorker(registration);
+        .then((registration) => {
+          messaging.useServiceWorker(registration);
 
-
-const messaging = firebase.messaging();
 Notification.requestPermission().then((permission) => {
   if (permission === 'granted') {
     // 通知を許可した場合
@@ -64,6 +63,7 @@ Notification.requestPermission().then((permission) => {
         console.log("currentToken:");
         console.log(currentToken);
       } else {
+        console.log("token failed");
         // トークン取得失敗
       }
     });
