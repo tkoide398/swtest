@@ -47,9 +47,9 @@
 
     if ('serviceWorker' in navigator) {
         // serviceworkerの登録
-        const messaging = firebase.messaging();
         navigator.serviceWorker.register('/swtest/firebase-messaging-sw.js')
         .then((registration) => {
+          const messaging = firebase.messaging();
           messaging.useServiceWorker(registration);
 
 Notification.requestPermission().then((permission) => {
