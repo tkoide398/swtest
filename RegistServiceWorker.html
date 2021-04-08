@@ -21,6 +21,8 @@
                 return registration.pushManager.subscribe({ userVisibleOnly: true }); 
             })
             .then(function (subscription) {
+                console.log("subscription done");
+                console.log(subscription);
                 console.log('GCM EndPoint is:' + subscription.endpoint);
                 var auth = subscription.getKey('auth') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) : '';
                 console.log('User Auth is:' + auth);
