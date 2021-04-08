@@ -27,7 +27,10 @@
                 var publicKey = subscription.getKey('p256dh') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : '';
                 console.log('User PublicKey is:' + publicKey);
             })
-            .catch(function (err) {console.log("error");console.error.bind(console)} );
+            .catch(function (err) {
+                console.log("error"); 
+                console.error.bind(console);
+            } );
     }
 </script>
 </html>
