@@ -11,11 +11,14 @@
 </body>
 <script type="text/javascript">
     if ('serviceWorker' in navigator) {
+        // serviceworkerの登録
         navigator.serviceWorker.register('/swtest/serviceworker.js');
 
         navigator.serviceWorker.ready
             .then(function (registration) {
-                return registration.pushManager.subscribe({ userVisibleOnly: true });
+                // pushの登録
+                console.log("show subscribe")
+                return registration.pushManager.subscribe({ userVisibleOnly: true }); 
             })
             .then(function (subscription) {
                 console.log('GCM EndPoint is:' + subscription.endpoint);
@@ -24,7 +27,7 @@
                 var publicKey = subscription.getKey('p256dh') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : '';
                 console.log('User PublicKey is:' + publicKey);
             })
-            .catch(console.error.bind(console));
+            .catch(console.log("error");console.error.bind(console));
     }
 </script>
 </html>
