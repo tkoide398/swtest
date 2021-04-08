@@ -14,25 +14,38 @@
         // serviceworkerの登録
         navigator.serviceWorker.register('/swtest/serviceworker.js');
 
-        navigator.serviceWorker.ready
-            .then(function (registration) {
-                // pushの登録
-                console.log("show subscribe")
-                return registration.pushManager.subscribe({ userVisibleOnly: true }); 
-            })
-            .then(function (subscription) {
-                console.log("subscription done");
-                console.log(subscription);
-                console.log('GCM EndPoint is:' + subscription.endpoint);
-                var auth = subscription.getKey('auth') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) : '';
-                console.log('User Auth is:' + auth);
-                var publicKey = subscription.getKey('p256dh') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : '';
-                console.log('User PublicKey is:' + publicKey);
-            })
-            .catch(function (err) {
-                console.log("error"); 
-                console.error.bind(console);
-            } );
+navigator.serviceWorker.ready.then(function(registration) {
+	return registration.pushManager.getSubscription().then(function(subscription) {
+		if (subscription) return subscription;
+		registration.pushManager.subscribe({
+			userVisibleOnly: true
+		}).then(function (subscription) {
+			console.log('購読を登録しました');
+		});
+	})
+});
+
+
+
+//        navigator.serviceWorker.ready
+//            .then(function (registration) {
+//                // pushの登録
+//                console.log("show subscribe")
+//                return registration.pushManager.subscribe({ userVisibleOnly: true }); 
+//            })
+//            .then(function (subscription) {
+//                console.log("subscription done");
+//                console.log(subscription);
+//                console.log('GCM EndPoint is:' + subscription.endpoint);
+//                var auth = subscription.getKey('auth') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('auth')))) : '';
+//                console.log('User Auth is:' + auth);
+//                var publicKey = subscription.getKey('p256dh') ? btoa(String.fromCharCode.apply(null, new Uint8Array(subscription.getKey('p256dh')))) : '';
+//                console.log('User PublicKey is:' + publicKey);
+//            })
+//            .catch(function (err) {
+//                console.log("error"); 
+//                console.error.bind(console);
+//            } );
     }
 </script>
 </html>
