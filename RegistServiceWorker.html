@@ -47,7 +47,10 @@
 
     if ('serviceWorker' in navigator) {
         // serviceworkerの登録
-        navigator.serviceWorker.register('/swtest/firebase-messaging-sw.js');
+        navigator.serviceWorker.register('/swtest/firebase-messaging-sw.js')
+.then((registration) => {
+  messaging.useServiceWorker(registration);
+
 
 const messaging = firebase.messaging();
 Notification.requestPermission().then((permission) => {
@@ -68,6 +71,8 @@ Notification.requestPermission().then((permission) => {
     // 通知を拒否した場合
     console.log('Unable to get permission to notify.');
   }
+});
+
 });
 
 
